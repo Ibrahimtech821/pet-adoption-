@@ -3,7 +3,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns= [
-    path('',views.members,name='member'),
-    path('/admin/',admin.site.urls)
+    path('',views.home,name="home"),
+    
 
 ]
