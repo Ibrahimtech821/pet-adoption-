@@ -2,7 +2,7 @@ from django.db import models
 
 choice={
 
-    'Yes':'yrs',
+    'Yes':'yes',
     'No':'no'
 
 }
