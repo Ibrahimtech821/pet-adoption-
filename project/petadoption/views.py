@@ -8,7 +8,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import adoption as AdoptionForm
+from .forms import  AdoptionForm
+
 
 
 class MyLoginView(LoginView):
@@ -60,7 +61,7 @@ def filter_pets(request):
     if not pets.exists():
         error = "No pets found matching your search criteria."
 
-    return render(request, 'petadoption/pets_list.html', {
+    return render(request, 'pets_list.html', {
         'pets': pets,
         'filter_specie': pet_specie,
         'filter_color': pet_color,
@@ -81,7 +82,7 @@ def pet_detail(request, pet_id):
         'any_injuries': pet.any_injuries if pet.any_injuries else 'No',
         'injury_description': pet.describe_if_of_injury_if_there if pet.describe_if_of_injury_if_there else 'There are no injuries',
     }
-    return render(request, 'petadoption/pet_detail.html', {'pet': pet_data})
+    return render(request, 'pet_detail.html', {'pet': pet_data})
 
 #requires login
 @login_required(login_url='/login/')
@@ -99,15 +100,18 @@ def submit_adoption_request(request, pet_id=None):
     else: #just opened the page
         form = AdoptionForm()
 
-    return render(request, 'petadoption/adoption_form.html', {'form': form, 'pet': pet})
+    return render(request, 'adoption_form.html', {'form': form, 'pet': pet})
 
 def adoption_success(request):
-    return render(request, 'petadoption/adoption_success.html')
+    return render(request, 'adoption_success.html')
 
+def my_requests(request):
+    submissons=adoptionform.objects.filter(user=request.user)
+    return render(request,'view_submission.html',{'submissons':submissons})
 
 
 def search_pets(request):
-    search_name = request.GET.get('name', '')
+    search_name = request.GET.get('name')
     if search_name:
         pets = enterpets.objects.filter(pet_name__icontains=search_name)
         if not pets.exists():
@@ -118,7 +122,7 @@ def search_pets(request):
         pets = enterpets.objects.all() #if empty show all pets
         error = ''
 
-    return render(request, 'petadoption/pets_list.html', {
+    return render(request, 'pets_list.html', {
         'pets': pets,
         'error': error
     })
