@@ -17,9 +17,11 @@ class enterpets(models.Model):
     'bird':'bird',
 }
     pet_name=models.CharField(max_length=255)
-    Age=models.IntegerField(choices=pets,default="unkown")
+    Age = models.IntegerField(default=0)
     specie=models.CharField(choices=pets,max_length=100,default='dog')
     description=models.CharField(max_length=1000)
+    breed = models.CharField(max_length=100, default='Unknown')  
+    color = models.CharField(max_length=50, default='Unknown') 
     any_injuries=models.CharField(choices=choice,max_length=4,default='No')
     describe_if_of_injury_if_there=models.CharField(max_length=255) 
 
