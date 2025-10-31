@@ -1,9 +1,12 @@
 from django.urls import path
 from django.contrib import admin
-from . import views
+from .views import MyLoginView,home,about,register
 
 urlpatterns= [
-    path('',views.home,name="home"),
+    path('',home,name="home"),
+    path('login/', MyLoginView.as_view(), name='login'),
+    path('register/',register,name='register'),
+    path('home',home,name='home'),
     
 
 ]
