@@ -94,7 +94,11 @@ def submit_adoption_request(request, pet_id=None):
     if request.method == 'POST': #user submitted
         form = AdoptionForm(request.POST)
         if form.is_valid():
-            form.save()
+            req=form.save(commit=False)
+            req.user=request.user
+            if pet:
+                req.pet=pet
+            req.save()
             messages.success(request, "Adoption request submitted successfully.")
             return redirect('adoption_success')
     else: #just opened the page
