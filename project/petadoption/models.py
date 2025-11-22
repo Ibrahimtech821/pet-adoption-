@@ -23,7 +23,7 @@ class enterpets(models.Model):
     description=models.CharField(max_length=1000)
     breed = models.CharField(max_length=100, default='Unknown')  
     color = models.CharField(max_length=50, default='Unknown') 
-    any_injuries=models.CharField(choices=choice,max_length=4,default='No')
+    any_injuries=models.CharField(choices=choice,max_length=4,default='no')
     describe_if_of_injury_if_there=models.CharField(max_length=255) 
 
     def __str__(self):
