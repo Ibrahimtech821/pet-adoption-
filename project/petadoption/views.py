@@ -131,3 +131,125 @@ def search_pets(request):
         'error': error
     })
 
+'''
+1. What is your activity level? (low , medium , high)
+2. How much living space do you have? (small apartment , medium appartment , large appartment)
+3. Do you have allergies? (yes , no)
+4. How much time can you spend caring for a pet daily? (less than 1 hour, 1-2 hour ,more than 2 hours)
+5. Do you want an interactive pet? (yes ,no)
+6. Noise tolerance? (I don't mind noise , Prefer quiet)
+7. Do you want a pet that can live many years? (yes , no preference)
+8. Do you have kids at home? (yes , no)
+'''
+
+
+def pet_quiz(request):
+    if request.method == "POST":
+        scores = {
+            "Dog": 0,
+            "Cat": 0,
+            "Turtle": 0,
+            "Bird": 0,
+            
+        }
+    activity = request.POST.get("activity")
+    space = request.POST.get("space")
+    allergy = request.POST.get("allergy")
+    time = request.POST.get("time")
+    interactive = request.POST.get("interactive")
+    noise = request.POST.get("noise")
+    long_life = request.POST.get("long_life")
+    kids = request.POST.get("kids")
+
+
+    if activity == "low":
+        scores["Cat"] += 2
+        scores["Turtle"] += 3
+        
+    elif activity == "medium":
+        scores["Cat"] += 2
+        scores["Bird"] += 2
+
+    elif activity == "high":
+        scores["Dog"] += 3
+
+
+
+    if space == "small":
+        scores["Cat"] += 2
+        scores["Turtle"] += 3
+        
+    elif space == "medium":
+        scores["Cat"] += 1
+        scores["Bird"] += 1
+        scores["Dog"] += 2
+
+    elif space == "large":
+        scores["Dog"] += 3
+        scores["Cat"] += 2
+        scores["Bird"] += 2
+
+    
+
+    if allergy == "yes":
+        scores["Bird"] += 2
+        scores["Turtle"] += 4
+    else :
+        scores["Dog"] += 1
+        scores["Cat"] += 1
+       
+
+
+    if time == "low":
+        scores["Bird"] += 1
+        scores["Turtle"] += 4
+        
+    elif time == "medium":
+        scores["Cat"] += 2
+        scores["Bird"] += 1
+
+    elif time == "high":
+        scores["Dog"] += 4
+        scores["Cat"] += 3
+
+
+
+    if interactive == "yes":
+        scores["Dog"] += 4
+        scores["Cat"] += 3
+        scores["Bird"] += 2
+    else:
+        scores["Turtle"] += 4
+
+
+
+    if noise == "I don't mind noise":
+        scores["Dog"] += 3
+        scores["Cat"] += 2
+        scores["Bird"] += 3
+    else :
+        scores["Turtle"] += 3
+
+
+
+    if long_life == "yes":
+        scores["Bird"] += 2
+        scores["Turtle"] += 3
+    else:
+        scores["Dog"] += 1
+        scores["Cat"] += 1
+
+
+
+    if kids == "yes":
+        scores["Bird"] += 1
+        scores["Dog"] += 3
+        scores["Cat"] += 2
+
+
+
+    recommended_pet = max(scores , key=scores.get)
+    return HttpResponse(f"Our Recommended Pet is : {recommended_pet}")
+
+
+     
