@@ -249,7 +249,7 @@ def pet_quiz(request):
 
 
     recommended_pet = max(scores , key=scores.get)
-    return HttpResponse(f"Our Recommended Pet is : {recommended_pet}")
-
-
-     
+    return render (request , "quiz_result.html" , {
+        "Recommended_pet" : recommended_pet ,
+        "Scores" : scores
+    })
