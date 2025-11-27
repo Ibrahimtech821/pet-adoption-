@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib import admin
-from .views import MyLoginView,home,about,register , filter_pets, pet_detail,submit_adoption_request, adoption_success
+from .views import MyLoginView,home,about,register , filter_pets, pet_detail,submit_adoption_request, adoption_success,pet_quiz
 
 urlpatterns= [
     path('',home,name="home"),
@@ -12,6 +12,7 @@ urlpatterns= [
     path('pets/<int:pet_id>/', pet_detail, name='pet_detail'),
     path('adopt/<int:pet_id>/', submit_adoption_request, name='submit_adoption'),
     path('adoption-success/', adoption_success, name='adoption_success'),
+    path('quiz/', pet_quiz , name='pet_quiz'),
     
 
 ]
