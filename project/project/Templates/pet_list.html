@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Available Pets - PawsHome{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Available Pets</h1>
+            <p class="page-description">Find your perfect companion from our loving pets</p>
+        </div>
+
+        <div class="pet-list-layout">
+            <!-- Sidebar Filter -->
+            <aside class="filter-sidebar">
+                <div class="filter-card">
+                    <h3 class="filter-title">Search & Filter</h3>
+                    
+                    <form method="get" action="{% url 'pets:pet_list' %}" id="filterForm">
+                        <!-- Search Input -->
+                        <div class="filter-group">
+                            <div class="search-box">
+                                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                                <input 
+                                    type="text" 
+                                    name="search" 
+                                    placeholder="Search by name or breed..." 
+                                    class="search-input"
+                                    value="{{ search }}"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Species Filter -->
+                        <div class="filter-group">
+                            <label class="filter-label">Species</label>
+                            <select name="species" class="filter-select">
+                                <option value="">All Species</option>
+                                <option value="dog" {% if selected_species == 'dog' %}selected{% endif %}>Dogs</option>
+                                <option value="cat" {% if selected_species == 'cat' %}selected{% endif %}>Cats</option>
+                            </select>
+                        </div>
+
+                        <!-- Size Filter -->
+                        <div class="filter-group">
+                            <label class="filter-label">Size</label>
+                            <select name="size" class="filter-select">
+                                <option value="">All Sizes</option>
+                                <option value="small" {% if selected_size == 'small' %}selected{% endif %}>Small</option>
+                                <option value="medium" {% if selected_size == 'medium' %}selected{% endif %}>Medium</option>
+                                <option value="large" {% if selected_size == 'large' %}selected{% endif %}>Large</option>
+                            </select>
+                        </div>
+
+                        <!-- Age Filter -->
+                        <div class="filter-group">
+                            <label class="filter-label">Age</label>
+                            <select name="age" class="filter-select">
+                                <option value="">All Ages</option>
+                                <option value="young" {% if selected_age == 'young' %}selected{% endif %}>0-2 years</option>
+                                <option value="adult" {% if selected_age == 'adult' %}selected{% endif %}>3-7 years</option>
+                                <option value="senior" {% if selected_age == 'senior' %}selected{% endif %}>8+ years</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-filter">Apply Filters</button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- Pet Grid -->
+            <div class="pet-list-content">
+                {% if pets %}
+                    <p class="results-count">
+                        Showing {{ pets.count }} pet{{ pets.count|pluralize }}
+                    </p>
+                    
+                    <div class="pet-grid">
+                        {% for pet in pets %}
+                        <article class="pet-card">
+                            <div class="pet-image-container">
+                                <img src="{{ pet.image }}" alt="{{ pet.name }}" class="pet-image">
+                                <button class="favorite-btn" aria-label="Add to favorites">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div class="pet-card-body">
+                                <div class="pet-card-header">
+                                    <div>
+                                        <h3 class="pet-name">{{ pet.name }}</h3>
+                                        <p class="pet-breed">{{ pet.breed }}</p>
+                                    </div>
+                                    <span class="pet-badge pet-badge-{{ pet.species }}">
+                                        {{ pet.get_species_display }}
+                                    </span>
+                                </div>
+
+                                <div class="pet-location">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <span>{{ pet.location }}</span>
+                                </div>
+
+                                <div class="pet-tags">
+                                    <span class="pet-tag">{{ pet.age }} year{{ pet.age|pluralize }}</span>
+                                    <span class="pet-tag">{{ pet.get_size_display }}</span>
+                                    <span class="pet-tag">{{ pet.get_gender_display }}</span>
+                                </div>
+
+                                <a href="{% url 'pets:pet_detail' pet.id %}" class="btn-view-profile">
+                                    View Profile
+                                </a>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-results">
+                        <div class="no-results-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </div>
+                        <h3 class="no-results-title">No pets found</h3>
+                        <p class="no-results-text">
+                            Try adjusting your filters to see more results
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
