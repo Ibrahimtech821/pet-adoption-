@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ pet.name }} - PawsHome{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container-narrow">
+        <!-- Back Button -->
+        <a href="{% url 'pets:pet_list' %}" class="back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to All Pets</span>
+        </a>
+
+        <div class="pet-detail-card">
+            <div class="pet-detail-grid">
+                <!-- Image Section -->
+                <div class="pet-detail-image-container">
+                    <img src="{{ pet.image }}" alt="{{ pet.name }}" class="pet-detail-image">
+                </div>
+
+                <!-- Info Section -->
+                <div class="pet-detail-info">
+                    <div class="pet-detail-header">
+                        <div>
+                            <h1 class="pet-detail-name">{{ pet.name }}</h1>
+                            <p class="pet-detail-breed">{{ pet.breed }}</p>
+                        </div>
+                        <button class="favorite-btn-large" aria-label="Add to favorites">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="pet-detail-location">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>{{ pet.location }}</span>
+                    </div>
+
+                    <!-- Basic Info Grid -->
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <p class="info-label">Age</p>
+                            <p class="info-value">{{ pet.age }} year{{ pet.age|pluralize }}</p>
+                        </div>
+                        <div class="info-box">
+                            <p class="info-label">Size</p>
+                            <p class="info-value">{{ pet.get_size_display }}</p>
+                        </div>
+                        <div class="info-box">
+                            <p class="info-label">Gender</p>
+                            <p class="info-value">{{ pet.get_gender_display }}</p>
+                        </div>
+                        <div class="info-box">
+                            <p class="info-label">Species</p>
+                            <p class="info-value">{{ pet.get_species_display }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Personality Traits -->
+                    <div class="personality-section">
+                        <h3 class="section-subtitle">Personality</h3>
+                        <div class="personality-tags">
+                            {% for trait in pet.personality %}
+                            <span class="personality-tag">{{ trait }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button class="btn-adopt" onclick="openAdoptionModal('{{ pet.name }}')">
+                        Adopt {{ pet.name }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Additional Details -->
+            <div class="pet-additional-details">
+                <div class="details-grid">
+                    <!-- About -->
+                    <div class="detail-section">
+                        <h3 class="section-subtitle">About {{ pet.name }}</h3>
+                        <p class="detail-text">{{ pet.description }}</p>
+                    </div>
+
+                    <!-- Medical & Compatibility -->
+                    <div class="detail-section">
+                        <h3 class="section-subtitle">Health & Compatibility</h3>
+                        <div class="compatibility-list">
+                            <div class="compatibility-item">
+                                {% if pet.vaccinated %}
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                {% else %}
+                                <svg class="x-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                                {% endif %}
+                                <span>Vaccinated</span>
+                            </div>
+                            <div class="compatibility-item">
+                                {% if pet.neutered %}
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                {% else %}
+                                <svg class="x-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                                {% endif %}
+                                <span>Spayed/Neutered</span>
+                            </div>
+                            <div class="compatibility-item">
+                                {% if pet.good_with_kids %}
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                {% else %}
+                                <svg class="x-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                                {% endif %}
+                                <span>Good with Kids</span>
+                            </div>
+                            <div class="compatibility-item">
+                                {% if pet.good_with_pets %}
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                {% else %}
+                                <svg class="x-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                                {% endif %}
+                                <span>Good with Other Pets</span>
+                            </div>
+                        </div>
+
+                        <div class="medical-history">
+                            <h4 class="medical-title">Medical History</h4>
+                            <p class="medical-text">{{ pet.medical_history }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Adoption Modal -->
+<div id="adoptionModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">Adoption Application</h2>
+            <button class="modal-close" onclick="closeAdoptionModal()" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <form id="adoptionForm" class="modal-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="fullName" class="form-label">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" class="form-input" required>
+                <span class="form-error" id="fullNameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address *</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+                <span class="form-error" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone" class="form-label">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" class="form-input" required>
+                <span class="form-error" id="phoneError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="address" class="form-label">Address *</label>
+                <input type="text" id="address" name="address" class="form-input" required>
+                <span class="form-error" id="addressError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="experience" class="form-label">Pet Ownership Experience *</label>
+                <select id="experience" name="experience" class="form-select" required>
+                    <option value="">Select...</option>
+                    <option value="first-time">First-time pet owner</option>
+                    <option value="some">Some experience</option>
+                    <option value="experienced">Experienced pet owner</option>
+                </select>
+                <span class="form-error" id="experienceError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="message" class="form-label">Why do you want to adopt this pet?</label>
+                <textarea id="message" name="message" class="form-textarea" rows="4"></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeAdoptionModal()">Cancel</button>
+                <button type="submit" class="btn-submit">Submit Application</button>
+            </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message" style="display: none;">
+            <div class="success-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h2 class="success-title">Application Submitted!</h2>
+            <p class="success-text">
+                Thank you for your interest in adopting <span id="petNameSuccess"></span>. 
+                We'll review your application and get back to you soon.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

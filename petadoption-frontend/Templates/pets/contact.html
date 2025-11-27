@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - PawsHome{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container-narrow">
+        <h1 class="page-title centered">Contact Us</h1>
+        
+        <div class="contact-grid">
+            <!-- Contact Information -->
+            <div class="content-card">
+                <h3 class="card-title">Get in Touch</h3>
+                <div class="contact-info-list">
+                    <div class="contact-info-item">
+                        <p class="contact-info-label">Phone</p>
+                        <p class="contact-info-value">(555) 123-4567</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <p class="contact-info-label">Email</p>
+                        <p class="contact-info-value">info@pawshome.org</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <p class="contact-info-label">Address</p>
+                        <p class="contact-info-value">
+                            123 Pet Street<br>
+                            San Francisco, CA 94102
+                        </p>
+                    </div>
+                    <div class="contact-info-item">
+                        <p class="contact-info-label">Hours</p>
+                        <p class="contact-info-value">
+                            Monday - Friday: 9am - 6pm<br>
+                            Saturday: 10am - 4pm<br>
+                            Sunday: Closed
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="content-card">
+                <h3 class="card-title">Send a Message</h3>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="contactName" class="form-label">Name</label>
+                        <input type="text" id="contactName" name="name" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail" class="form-label">Email</label>
+                        <input type="email" id="contactEmail" name="email" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactMessage" class="form-label">Message</label>
+                        <textarea id="contactMessage" name="message" class="form-textarea" rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary full-width">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

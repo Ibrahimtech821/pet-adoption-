@@ -1,0 +1,128 @@
+[
+  {
+    "model": "pets.pet",
+    "pk": 1,
+    "fields": {
+      "name": "Max",
+      "species": "dog",
+      "breed": "Golden Retriever",
+      "age": 3,
+      "size": "large",
+      "gender": "male",
+      "location": "San Francisco, CA",
+      "image": "https://images.unsplash.com/photo-1734966213753-1b361564bab4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb2xkZW4lMjByZXRyaWV2ZXIlMjBkb2d8ZW58MXx8fHwxNzY0MTUyMjY4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "description": "Max is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks. He is well-trained and great with families.",
+      "personality": ["Friendly", "Energetic", "Loyal", "Playful"],
+      "medical_history": "Up to date on all vaccinations. Recently had dental cleaning. No known health issues.",
+      "vaccinated": true,
+      "neutered": true,
+      "good_with_kids": true,
+      "good_with_pets": true
+    }
+  },
+  {
+    "model": "pets.pet",
+    "pk": 2,
+    "fields": {
+      "name": "Luna",
+      "species": "cat",
+      "breed": "Tabby",
+      "age": 2,
+      "size": "medium",
+      "gender": "female",
+      "location": "Los Angeles, CA",
+      "image": "https://images.unsplash.com/photo-1625192494235-21e8821040c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0YWJieSUyMGNhdCUyMHBvcnRyYWl0fGVufDF8fHx8MTc2NDIwMDExN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "description": "Luna is a sweet and affectionate tabby cat who enjoys cuddling and watching birds from the window. She is calm and loves a peaceful home.",
+      "personality": ["Affectionate", "Calm", "Independent", "Gentle"],
+      "medical_history": "Fully vaccinated and spayed. Healthy with no medical concerns.",
+      "vaccinated": true,
+      "neutered": true,
+      "good_with_kids": true,
+      "good_with_pets": false
+    }
+  },
+  {
+    "model": "pets.pet",
+    "pk": 3,
+    "fields": {
+      "name": "Charlie",
+      "species": "dog",
+      "breed": "Beagle",
+      "age": 1,
+      "size": "medium",
+      "gender": "male",
+      "location": "Seattle, WA",
+      "image": "https://images.unsplash.com/photo-1606833694770-40a04762ac16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWFnbGUlMjBwdXBweXxlbnwxfHx8fDE3NjQxMjk0MTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "description": "Charlie is a curious and playful Beagle puppy with lots of energy. He loves exploring and making new friends, both human and animal.",
+      "personality": ["Curious", "Playful", "Social", "Adventurous"],
+      "medical_history": "Received first round of vaccinations. Scheduled for neutering next month.",
+      "vaccinated": true,
+      "neutered": false,
+      "good_with_kids": true,
+      "good_with_pets": true
+    }
+  },
+  {
+    "model": "pets.pet",
+    "pk": 4,
+    "fields": {
+      "name": "Milo",
+      "species": "cat",
+      "breed": "Orange Tabby",
+      "age": 5,
+      "size": "medium",
+      "gender": "male",
+      "location": "Portland, OR",
+      "image": "https://images.unsplash.com/photo-1621016726453-9577d93b4508?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvcmFuZ2UlMjBraXR0ZW58ZW58MXx8fHwxNzY0MjE5MjQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "description": "Milo is a laid-back orange tabby who enjoys lounging in sunny spots and getting head scratches. He is perfect for someone looking for a calm companion.",
+      "personality": ["Relaxed", "Loving", "Quiet", "Easygoing"],
+      "medical_history": "All vaccinations current. Neutered. Treated for minor dental issues last year.",
+      "vaccinated": true,
+      "neutered": true,
+      "good_with_kids": true,
+      "good_with_pets": true
+    }
+  },
+  {
+    "model": "pets.pet",
+    "pk": 5,
+    "fields": {
+      "name": "Bella",
+      "species": "dog",
+      "breed": "Siberian Husky",
+      "age": 4,
+      "size": "large",
+      "gender": "female",
+      "location": "Denver, CO",
+      "image": "https://images.unsplash.com/photo-1706941528529-e08c40ae7f20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxodXNreSUyMGRvZyUyMGJsdWUlMjBleWVzfGVufDF8fHx8MTc2NDIxOTI0Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "description": "Bella is a beautiful Siberian Husky with striking blue eyes. She is active and loves cold weather, hiking, and running. Best suited for an active family.",
+      "personality": ["Active", "Intelligent", "Independent", "Adventurous"],
+      "medical_history": "Fully vaccinated and spayed. Hip screening shows no issues. Healthy and active.",
+      "vaccinated": true,
+      "neutered": true,
+      "good_with_kids": true,
+      "good_with_pets": true
+    }
+  },
+  {
+    "model": "pets.pet",
+    "pk": 6,
+    "fields": {
+      "name": "Snowball",
+      "species": "cat",
+      "breed": "Persian",
+      "age": 3,
+      "size": "small",
+      "gender": "female",
+      "location": "Boston, MA",
+      "image": "https://images.unsplash.com/photo-1735618603118-89e26b0dcf6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJzaWFuJTIwY2F0JTIwd2hpdGV8ZW58MXx8fHwxNzY0MTU2NTI3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "description": "Snowball is a fluffy Persian cat with a gentle and quiet personality. She enjoys being groomed and loves a calm environment with lots of affection.",
+      "personality": ["Gentle", "Quiet", "Affectionate", "Elegant"],
+      "medical_history": "Fully vaccinated and spayed. Regular grooming required. No health concerns.",
+      "vaccinated": true,
+      "neutered": true,
+      "good_with_kids": false,
+      "good_with_pets": false
+    }
+  }
+]
