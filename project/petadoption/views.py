@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import  AdoptionForm
@@ -27,24 +27,33 @@ def register(request):  ##user login
             login(request,user)
             return redirect('login')
         return render(request,'register.html',{"register":new_user})
-
+    else:  
+        new_user = UserCreationForm()
+        return render(request,'register.html',{"register":new_user})
+def logout_user(request):
+    logout(request)             
+    return redirect('home')
 def home(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        return redirect('/admin/')
     return render(request,"home.html")
-def view_pets(request):
-    pets=enterpets.objects.all()
-    return render(request,"pets_data.html",{"pet":pets})
+
 def about(request):
     return render(request,"about.html")
 
 
-def filter_pets(request):
+def pets_view(request):
+    # Start with all pets
+    pets = enterpets.objects.all()
+    error = ""
+
+    # Get filter parameters from GET
     pet_specie = request.GET.get('specie', '')
     pet_color = request.GET.get('color', '')
     pet_breed = request.GET.get('breed', '')
-    pet_age = request.GET.get('Age', '')
+    pet_age = request.GET.get('age_range', '')  # match template name
 
-    pets = enterpets.objects.all()
-    error = ''
+    # Apply filters only if user entered something
     if pet_specie:
         pets = pets.filter(specie__iexact=pet_specie)
     if pet_color:
@@ -53,16 +62,18 @@ def filter_pets(request):
         pets = pets.filter(breed__icontains=pet_breed)
     if pet_age:
         try:
-            age_int = int(pet_age) #from string to int
-            pets = pets.filter(Age=age_int)
+            # convert age group to actual age range
+            if pet_age == 'young':
+                pets = pets.filter(Age__gte=0, Age__lte=2)
+            elif pet_age == 'adult':
+                pets = pets.filter(Age__gte=3, Age__lte=7)
+            elif pet_age == 'senior':
+                pets = pets.filter(Age__gte=8)
         except ValueError:
             error = "Invalid age input. Please enter a number."
 
-    if not pets.exists():
-        error = "No pets found matching your search criteria."
-
-    return render(request, 'pets_list.html', {
-        'pets': pets,
+    return render(request, 'pets.html', {
+        'pet': pets,
         'filter_specie': pet_specie,
         'filter_color': pet_color,
         'filter_breed': pet_breed,
@@ -70,9 +81,11 @@ def filter_pets(request):
     })
 
 
+
 def pet_detail(request, pet_id):
     pet = get_object_or_404(enterpets, id=pet_id)
     pet_data = {
+        'id': pet.id,
         'name': pet.pet_name,
         'age': pet.Age if pet.Age else 'Unknown',  
         'specie': pet.specie if pet.specie else 'Unknown',
@@ -81,6 +94,7 @@ def pet_detail(request, pet_id):
         'description': pet.description if pet.description else '',
         'any_injuries': pet.any_injuries if pet.any_injuries else 'No',
         'injury_description': pet.describe_if_of_injury_if_there if pet.describe_if_of_injury_if_there else 'There are no injuries',
+        'image': pet.image if pet.image else None,
     }
     return render(request, 'pet_detail.html', {'pet': pet_data})
 

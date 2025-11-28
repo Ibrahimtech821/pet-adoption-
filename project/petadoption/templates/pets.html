@@ -73,7 +73,7 @@
                     <a href="{% url 'pet_detail' pet_item.id %}" class="pet-card">
                         <div class="pet-card-image">
                             {% if pet_item.image %}
-                                <img src="{{ pet_item.image }}" alt="{{ pet_item.pet_name }}">
+                               <img src="{{ pet_item.image }}" class="pet-small" alt="{{ pet_item.pet_name }}">
                             {% else %}
                                 <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #a78bfa, #ec4899); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
                                     {% if pet_item.specie == 'dog' %}🐶

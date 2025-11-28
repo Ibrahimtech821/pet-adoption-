@@ -885,6 +885,9 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .pet-card:hover {
@@ -901,6 +904,20 @@ body {
 }
 
 .pet-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pet-card-image {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background-color: var(--bg-tertiary);
+}
+
+.pet-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -929,7 +946,24 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+.pet-card-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background-color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  box-shadow: var(--shadow-sm);
+}
+
 .pet-info {
+  padding: 1.25rem;
+}
+
+.pet-card-content {
   padding: 1.25rem;
 }
 
@@ -948,6 +982,18 @@ body {
   color: var(--primary-color);
 }
 
+.pet-card-name {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.pet-card-breed {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
 .pet-meta {
   display: flex;
   gap: 1rem;
@@ -960,6 +1006,36 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+.pet-card-info {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.pet-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.info-icon {
+  font-size: 1rem;
+}
+
+.pet-card-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.pet-card-link {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 0.875rem;
 }
 
 .pet-description {
@@ -1290,6 +1366,99 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+/* Django Built-in Form Styling for Adoption Form */
+.adoption-form p {
+  margin-bottom: 1.5rem;
+}
+
+.adoption-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+}
+
+.adoption-form input[type="text"],
+.adoption-form input[type="email"],
+.adoption-form input[type="password"],
+.adoption-form input[type="number"],
+.adoption-form input[type="tel"],
+.adoption-form input[type="date"],
+.adoption-form input[type="url"],
+.adoption-form select,
+.adoption-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.2s;
+  background-color: white;
+  font-family: inherit;
+}
+
+.adoption-form input[type="text"]:focus,
+.adoption-form input[type="email"]:focus,
+.adoption-form input[type="password"]:focus,
+.adoption-form input[type="number"]:focus,
+.adoption-form input[type="tel"]:focus,
+.adoption-form input[type="date"]:focus,
+.adoption-form input[type="url"]:focus,
+.adoption-form select:focus,
+.adoption-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.adoption-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.adoption-form .helptext {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: 0.375rem;
+  line-height: 1.4;
+}
+
+.adoption-form .errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.adoption-form .errorlist li {
+  color: var(--danger-color);
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  background-color: #fee2e2;
+  border-radius: var(--border-radius);
+  margin-bottom: 0.5rem;
+}
+
+.adoption-form input.error,
+.adoption-form select.error,
+.adoption-form textarea.error {
+  border-color: var(--danger-color);
+}
+
+/* Non-field errors */
+.adoption-form .errorlist.nonfield {
+  margin-bottom: 1.5rem;
+}
+
+.adoption-form .errorlist.nonfield li {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--danger-color);
+}
+
 .form-section {
   margin-bottom: 2.5rem;
   padding-bottom: 2.5rem;
@@ -1382,6 +1551,24 @@ body {
   text-decoration: underline;
 }
 
+/* Required field indicator */
+.auth-form label:has(+ input[required])::after,
+.adoption-form label:has(+ input[required])::after,
+.auth-form label:has(+ select[required])::after,
+.adoption-form label:has(+ select[required])::after,
+.auth-form label:has(+ textarea[required])::after,
+.adoption-form label:has(+ textarea[required])::after {
+  content: ' *';
+  color: var(--danger-color);
+}
+
+/* Alternative for older browsers - using .required class if Django adds it */
+.auth-form .required label::after,
+.adoption-form .required label::after {
+  content: ' *';
+  color: var(--danger-color);
+}
+
 .form-error {
   display: block;
   color: var(--danger-color);
@@ -1455,6 +1642,89 @@ body {
 
 .auth-form {
   margin-bottom: 1.5rem;
+}
+
+/* Django Built-in Form Styling */
+.auth-form p {
+  margin-bottom: 1.5rem;
+}
+
+.auth-form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="number"],
+.auth-form input[type="tel"],
+.auth-form select,
+.auth-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.2s;
+  background-color: white;
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="email"]:focus,
+.auth-form input[type="password"]:focus,
+.auth-form input[type="number"]:focus,
+.auth-form input[type="tel"]:focus,
+.auth-form select:focus,
+.auth-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.auth-form .helptext {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: 0.375rem;
+  line-height: 1.4;
+}
+
+.auth-form .errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.auth-form .errorlist li {
+  color: var(--danger-color);
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  background-color: #fee2e2;
+  border-radius: var(--border-radius);
+  margin-bottom: 0.5rem;
+}
+
+.auth-form input.error,
+.auth-form select.error,
+.auth-form textarea.error {
+  border-color: var(--danger-color);
+}
+
+/* Non-field errors */
+.auth-form .errorlist.nonfield {
+  margin-bottom: 1.5rem;
+}
+
+.auth-form .errorlist.nonfield li {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--danger-color);
 }
 
 .form-options {
