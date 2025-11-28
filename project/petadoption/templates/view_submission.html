@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Adoption Requests - Pet Adoption System{% endblock %}
+
+{% block content %}
+<section class="pet-list-header">
+    <div class="container">
+        <h1>My Adoption Requests</h1>
+        <p>View all your submitted adoption requests</p>
+    </div>
+</section>
+
+<section style="padding: 3rem 0;">
+    <div class="container">
+        {% if submissons %}
+            <div style="display: grid; gap: 1.5rem;">
+                {% for submission in submissons %}
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">
+                                {% if submission.pet %}
+                                    {{ submission.pet.pet_name }}
+                                {% else %}
+                                    General Adoption Request
+                                {% endif %}
+                            </h3>
+                            {% if submission.pet %}
+                                <p style="color: var(--text-secondary);">
+                                    {{ submission.pet.breed }} • {{ submission.pet.Age }} years old
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div style="padding: 0.5rem 1rem; background: #dbeafe; color: #1e40af; border-radius: 2rem; font-size: 0.875rem; font-weight: 600;">
+                            Pending
+                        </div>
+                    </div>
+                    
+                    <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                            Submitted on: {{ submission.created_at|date:"F d, Y" }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 4rem 2rem; background: white; border-radius: 8px;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">📋</div>
+                <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">No Adoption Requests Yet</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    You haven't submitted any adoption requests yet. Browse our available pets and find your perfect companion!
+                </p>
+                <a href="{% url 'pets' %}" class="btn btn-primary btn-large">Browse Pets</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
