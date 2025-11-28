@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Available Pets - Pet Adoption System{% endblock %}
+
+{% block content %}
+<section class="pet-list-header">
+    <div class="container">
+        <h1>Available Pets</h1>
+        <p>Find your perfect companion from our loving pets waiting for a home</p>
+    </div>
+</section>
+
+<section class="pet-list-main">
+    <div class="container">
+        <div class="pet-list-layout">
+            <!-- Filters Sidebar -->
+            <aside class="filters-sidebar">
+                <div class="filter-section">
+                    <h3>Search</h3>
+                    <form method="GET" class="search-form">
+                        <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search pets..." class="search-input">
+                        <button type="submit" class="search-btn">🔍</button>
+                    </form>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Filters</h3>
+                    <form method="GET">
+                        <div class="filter-group">
+                            <label>Pet Type</label>
+                            <select name="specie" class="filter-select" onchange="this.form.submit()">
+                                <option value="">All Types</option>
+                                <option value="dog" {% if request.GET.specie == 'dog' %}selected{% endif %}>Dogs</option>
+                                <option value="cat" {% if request.GET.specie == 'cat' %}selected{% endif %}>Cats</option>
+                                <option value="rabbit" {% if request.GET.specie == 'rabbit' %}selected{% endif %}>Rabbits</option>
+                                <option value="bird" {% if request.GET.specie == 'bird' %}selected{% endif %}>Birds</option>
+                                <option value="other" {% if request.GET.specie == 'other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Age</label>
+                            <select name="age_range" class="filter-select" onchange="this.form.submit()">
+                                <option value="">All Ages</option>
+                                <option value="young" {% if request.GET.age_range == 'young' %}selected{% endif %}>Young (0-2 years)</option>
+                                <option value="adult" {% if request.GET.age_range == 'adult' %}selected{% endif %}>Adult (3-7 years)</option>
+                                <option value="senior" {% if request.GET.age_range == 'senior' %}selected{% endif %}>Senior (8+ years)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Breed</label>
+                            <input type="text" name="breed" value="{{ request.GET.breed }}" placeholder="Enter breed..." class="search-input">
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button type="submit" class="btn btn-primary btn-block">Apply Filters</button>
+                            <a href="{% url 'pets' %}" class="btn btn-secondary btn-block">Clear All</a>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- Pet Grid -->
+            <div class="pets-content">
+                <div class="pets-header">
+                    <p class="pets-count">{{ pet.count }} pets found</p>
+                </div>
+
+                <div class="pets-grid">
+                    {% for pet_item in pet %}
+                    <a href="{% url 'pet_detail' pet_item.id %}" class="pet-card">
+                        <div class="pet-card-image">
+                            {% if pet_item.image %}
+                                <img src="{{ pet_item.image }}" alt="{{ pet_item.pet_name }}">
+                            {% else %}
+                                <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #a78bfa, #ec4899); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                                    {% if pet_item.specie == 'dog' %}🐶
+                                    {% elif pet_item.specie == 'cat' %}🐱
+                                    {% elif pet_item.specie == 'rabbit' %}🐰
+                                    {% elif pet_item.specie == 'bird' %}🐦
+                                    {% else %}🐾{% endif %}
+                                </div>
+                            {% endif %}
+                            <div class="pet-card-badge">{{ pet_item.specie }}</div>
+                        </div>
+                        <div class="pet-card-content">
+                            <h3 class="pet-card-name">{{ pet_item.pet_name }}</h3>
+                            <p class="pet-card-breed">{{ pet_item.breed }}</p>
+                            <div class="pet-card-info">
+                                <span class="pet-info-item">
+                                    <span class="info-icon">🎂</span>
+                                    {{ pet_item.Age }} {% if pet_item.Age == 1 %}year{% else %}years{% endif %}
+                                </span>
+                                <span class="pet-info-item">
+                                    <span class="info-icon">🎨</span>
+                                    {{ pet_item.color }}
+                                </span>
+                            </div>
+                            <div class="pet-card-footer">
+                                <span class="pet-card-link">View Details →</span>
+                            </div>
+                        </div>
+                    </a>
+                    {% empty %}
+                    <div class="no-pets">
+                        <p>No pets found matching your criteria. Try adjusting your filters.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
