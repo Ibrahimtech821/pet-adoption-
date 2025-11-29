@@ -14,8 +14,8 @@ class enterpets(models.Model):
     pets=[
     ('Dog','dog'),
     ('Cat','cat'),
-    ('turtle','turtle'),
-    ('bird','bird'),
+    ('Turtle','turtle'),
+    ('Bird','bird'),
     ('Rabbit','rabbit')
 ]
     pet_name=models.CharField(max_length=255)
