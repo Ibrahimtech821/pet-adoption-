@@ -16,15 +16,16 @@ class enterpets(models.Model):
     ('Cat','cat'),
     ('turtle','turtle'),
     ('bird','bird'),
+    ('Rabbit','rabbit')
 ]
     pet_name=models.CharField(max_length=255)
     Age = models.IntegerField(default=0)
     specie=models.CharField(choices=pets,max_length=100,default='dog')
-    description=models.CharField(max_length=1000)
+    description=models.CharField(max_length=1000 , default=' ')
     breed = models.CharField(max_length=100, default='Unknown')  
     color = models.CharField(max_length=50, default='Unknown') 
     any_injuries=models.CharField(choices=choice,max_length=4,default='no')
-    describe_if_of_injury_if_there=models.CharField(max_length=255) 
+    describe_if_of_injury_if_there=models.CharField(max_length=255 , default=' ') 
     image=models.URLField(max_length=500,blank=True,null=True)
     def __str__(self):
         return self.pet_name + '' + self.breed 
