@@ -47,13 +47,13 @@ def pets_view(request):
     pets = enterpets.objects.all()
     error = ""
 
-    # Get filter parameters from GET
+    
     pet_specie = request.GET.get('specie', '')
     pet_color = request.GET.get('color', '')
     pet_breed = request.GET.get('breed', '')
-    pet_age = request.GET.get('age_range', '')  # match template name
+    pet_age = request.GET.get('age_range', '')  
 
-    # Apply filters only if user entered something
+    
     if pet_specie:
         pets = pets.filter(specie__iexact=pet_specie)
     if pet_color:
@@ -129,7 +129,7 @@ def my_requests(request):
 
 
 def search_pets(request):
-    search_name = request.GET.get('name')
+    search_name = request.GET.get('name', '').strip()  # Get the search term from the query parameters
     if search_name:
         pets = enterpets.objects.filter(pet_name__icontains=search_name)
         if not pets.exists():
@@ -140,8 +140,8 @@ def search_pets(request):
         pets = enterpets.objects.all() #if empty show all pets
         error = ''
 
-    return render(request, 'pets_list.html', {
-        'pets': pets,
+    return render(request, 'pets.html', {
+        'pet': pets,
         'error': error
     })
 

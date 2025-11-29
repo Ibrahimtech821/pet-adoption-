@@ -18,8 +18,8 @@
             <aside class="filters-sidebar">
                 <div class="filter-section">
                     <h3>Search</h3>
-                    <form method="GET" class="search-form">
-                        <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search pets..." class="search-input">
+                    <form method="GET" action="{% url 'search_pets' %}" class="search-form">
+                        <input type="text" name="name" value="{{ request.GET.search }}" placeholder="Search pets..." class="search-input">
                         <button type="submit" class="search-btn">🔍</button>
                     </form>
                 </div>
