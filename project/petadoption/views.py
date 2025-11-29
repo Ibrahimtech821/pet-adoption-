@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import  AdoptionForm
@@ -27,24 +27,33 @@ def register(request):  ##user login
             login(request,user)
             return redirect('login')
         return render(request,'register.html',{"register":new_user})
-
+    else:  
+        new_user = UserCreationForm()
+        return render(request,'register.html',{"register":new_user})
+def logout_user(request):
+    logout(request)             
+    return redirect('home')
 def home(request):
-    return HttpResponse("hello")
-def view_pets(request):
-    pets=enterpets.objects.all()
-    return render(request,"pets_data.html",{"data":pets})
+    if request.user.is_authenticated and request.user.is_staff:
+        return redirect('/admin/')
+    return render(request,"home.html")
+
 def about(request):
     return render(request,"about.html")
 
 
-def filter_pets(request):
+def pets_view(request):
+    # Start with all pets
+    pets = enterpets.objects.all()
+    error = ""
+
+    # Get filter parameters from GET
     pet_specie = request.GET.get('specie', '')
     pet_color = request.GET.get('color', '')
     pet_breed = request.GET.get('breed', '')
-    pet_age = request.GET.get('Age', '')
+    pet_age = request.GET.get('age_range', '')  # match template name
 
-    pets = enterpets.objects.all()
-    error = ''
+    # Apply filters only if user entered something
     if pet_specie:
         pets = pets.filter(specie__iexact=pet_specie)
     if pet_color:
@@ -53,16 +62,18 @@ def filter_pets(request):
         pets = pets.filter(breed__icontains=pet_breed)
     if pet_age:
         try:
-            age_int = int(pet_age) #from string to int
-            pets = pets.filter(Age=age_int)
+            # convert age group to actual age range
+            if pet_age == 'young':
+                pets = pets.filter(Age__gte=0, Age__lte=2)
+            elif pet_age == 'adult':
+                pets = pets.filter(Age__gte=3, Age__lte=7)
+            elif pet_age == 'senior':
+                pets = pets.filter(Age__gte=8)
         except ValueError:
             error = "Invalid age input. Please enter a number."
 
-    if not pets.exists():
-        error = "No pets found matching your search criteria."
-
-    return render(request, 'pets_list.html', {
-        'pets': pets,
+    return render(request, 'pets.html', {
+        'pet': pets,
         'filter_specie': pet_specie,
         'filter_color': pet_color,
         'filter_breed': pet_breed,
@@ -70,9 +81,11 @@ def filter_pets(request):
     })
 
 
+
 def pet_detail(request, pet_id):
     pet = get_object_or_404(enterpets, id=pet_id)
     pet_data = {
+        'id': pet.id,
         'name': pet.pet_name,
         'age': pet.Age if pet.Age else 'Unknown',  
         'specie': pet.specie if pet.specie else 'Unknown',
@@ -81,6 +94,7 @@ def pet_detail(request, pet_id):
         'description': pet.description if pet.description else '',
         'any_injuries': pet.any_injuries if pet.any_injuries else 'No',
         'injury_description': pet.describe_if_of_injury_if_there if pet.describe_if_of_injury_if_there else 'There are no injuries',
+        'image': pet.image if pet.image else None,
     }
     return render(request, 'pet_detail.html', {'pet': pet_data})
 
@@ -130,18 +144,6 @@ def search_pets(request):
         'pets': pets,
         'error': error
     })
-
-'''
-1. What is your activity level? (low , medium , high)
-2. How much living space do you have? (small apartment , medium appartment , large appartment)
-3. Do you have allergies? (yes , no)
-4. How much time can you spend caring for a pet daily? (less than 1 hour, 1-2 hour ,more than 2 hours)
-5. Do you want an interactive pet? (yes ,no)
-6. Noise tolerance? (I don't mind noise , Prefer quiet)
-7. Do you want a pet that can live many years? (yes , no preference)
-8. Do you have kids at home? (yes , no)
-'''
-
 
 def pet_quiz(request):
     if request.method == "POST":
@@ -249,7 +251,5 @@ def pet_quiz(request):
 
 
     recommended_pet = max(scores , key=scores.get)
-    return render (request , "quiz_result.html" , {
-        "Recommended_pet" : recommended_pet ,
-        "Scores" : scores
-    })
+    return HttpResponse(f"Our Recommended Pet is : {recommended_pet}")
+
