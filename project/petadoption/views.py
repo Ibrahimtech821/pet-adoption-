@@ -152,6 +152,7 @@ def pet_quiz(request):
             "Cat": 0,
             "Turtle": 0,
             "Bird": 0,
+            "Rabbit" : 0,
             
         }
     activity = request.POST.get("activity")
@@ -167,10 +168,13 @@ def pet_quiz(request):
     if activity == "low":
         scores["Cat"] += 2
         scores["Turtle"] += 3
+        scores["Rabbit"] += 3
+
         
     elif activity == "medium":
         scores["Cat"] += 2
         scores["Bird"] += 2
+        scores["Rabbit"] += 1
 
     elif activity == "high":
         scores["Dog"] += 3
@@ -180,39 +184,46 @@ def pet_quiz(request):
     if space == "small":
         scores["Cat"] += 2
         scores["Turtle"] += 3
+        scores["Rabbit"] += 2
         
     elif space == "medium":
         scores["Cat"] += 1
         scores["Bird"] += 1
         scores["Dog"] += 2
+        scores["Rabbit"] += 1
 
     elif space == "large":
         scores["Dog"] += 3
         scores["Cat"] += 2
         scores["Bird"] += 2
+        scores["Rabbit"] += 1
 
     
 
     if allergy == "yes":
-        scores["Bird"] += 2
         scores["Turtle"] += 4
+        scores["Rabbit"] += 1
     else :
-        scores["Dog"] += 1
-        scores["Cat"] += 1
+        scores["Dog"] += 2
+        scores["Cat"] += 2
+        scores["Bird"] += 1
+        scores["Rabbit"] += 1
        
 
 
     if time == "low":
         scores["Bird"] += 1
         scores["Turtle"] += 4
-        
+        scores["Rabbit"] += 3
     elif time == "medium":
         scores["Cat"] += 2
         scores["Bird"] += 1
+        scores["Rabbit"] += 2
 
     elif time == "high":
         scores["Dog"] += 4
         scores["Cat"] += 3
+        scores["Rabbit"] += 1
 
 
 
@@ -220,8 +231,10 @@ def pet_quiz(request):
         scores["Dog"] += 4
         scores["Cat"] += 3
         scores["Bird"] += 2
+        scores["Rabbit"] += 2
     else:
         scores["Turtle"] += 4
+        scores["Rabbit"] += 3
 
 
 
@@ -229,14 +242,17 @@ def pet_quiz(request):
         scores["Dog"] += 3
         scores["Cat"] += 2
         scores["Bird"] += 3
+        scores["Rabbit"] += 1
     else :
-        scores["Turtle"] += 3
+        scores["Turtle"] += 4
+        scores["Rabbit"] += 3
 
 
 
     if long_life == "yes":
         scores["Bird"] += 2
         scores["Turtle"] += 3
+        scores["Rabbit"] += 2
     else:
         scores["Dog"] += 1
         scores["Cat"] += 1
@@ -247,9 +263,9 @@ def pet_quiz(request):
         scores["Bird"] += 1
         scores["Dog"] += 3
         scores["Cat"] += 2
+        scores["Rabbit"] += 3
 
 
 
     recommended_pet = max(scores , key=scores.get)
-    return HttpResponse(f"Our Recommended Pet is : {recommended_pet}")
-
+    return render (request , "quiz_result.html" , {  "Recommended_pet" : recommended_pet ,"Scores" : scores})
