@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.contrib.auth import login,logout
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import  AdoptionForm
@@ -27,33 +27,24 @@ def register(request):  ##user login
             login(request,user)
             return redirect('login')
         return render(request,'register.html',{"register":new_user})
-    else:  
-        new_user = UserCreationForm()
-        return render(request,'register.html',{"register":new_user})
-def logout_user(request):
-    logout(request)             
-    return redirect('home')
-def home(request):
-    if request.user.is_authenticated and request.user.is_staff:
-        return redirect('/admin/')
-    return render(request,"home.html")
 
+def home(request):
+    return HttpResponse("hello")
+def view_pets(request):
+    pets=enterpets.objects.all()
+    return render(request,"pets_data.html",{"data":pets})
 def about(request):
     return render(request,"about.html")
 
 
-def pets_view(request):
-    # Start with all pets
-    pets = enterpets.objects.all()
-    error = ""
-
-    # Get filter parameters from GET
+def filter_pets(request):
     pet_specie = request.GET.get('specie', '')
     pet_color = request.GET.get('color', '')
     pet_breed = request.GET.get('breed', '')
-    pet_age = request.GET.get('age_range', '')  # match template name
+    pet_age = request.GET.get('Age', '')
 
-    # Apply filters only if user entered something
+    pets = enterpets.objects.all()
+    error = ''
     if pet_specie:
         pets = pets.filter(specie__iexact=pet_specie)
     if pet_color:
@@ -62,18 +53,16 @@ def pets_view(request):
         pets = pets.filter(breed__icontains=pet_breed)
     if pet_age:
         try:
-            # convert age group to actual age range
-            if pet_age == 'young':
-                pets = pets.filter(Age__gte=0, Age__lte=2)
-            elif pet_age == 'adult':
-                pets = pets.filter(Age__gte=3, Age__lte=7)
-            elif pet_age == 'senior':
-                pets = pets.filter(Age__gte=8)
+            age_int = int(pet_age) #from string to int
+            pets = pets.filter(Age=age_int)
         except ValueError:
             error = "Invalid age input. Please enter a number."
 
-    return render(request, 'pets.html', {
-        'pet': pets,
+    if not pets.exists():
+        error = "No pets found matching your search criteria."
+
+    return render(request, 'pets_list.html', {
+        'pets': pets,
         'filter_specie': pet_specie,
         'filter_color': pet_color,
         'filter_breed': pet_breed,
@@ -81,11 +70,9 @@ def pets_view(request):
     })
 
 
-
 def pet_detail(request, pet_id):
     pet = get_object_or_404(enterpets, id=pet_id)
     pet_data = {
-        'id': pet.id,
         'name': pet.pet_name,
         'age': pet.Age if pet.Age else 'Unknown',  
         'specie': pet.specie if pet.specie else 'Unknown',
@@ -94,7 +81,6 @@ def pet_detail(request, pet_id):
         'description': pet.description if pet.description else '',
         'any_injuries': pet.any_injuries if pet.any_injuries else 'No',
         'injury_description': pet.describe_if_of_injury_if_there if pet.describe_if_of_injury_if_there else 'There are no injuries',
-        'image': pet.image if pet.image else None,
     }
     return render(request, 'pet_detail.html', {'pet': pet_data})
 
@@ -108,11 +94,7 @@ def submit_adoption_request(request, pet_id=None):
     if request.method == 'POST': #user submitted
         form = AdoptionForm(request.POST)
         if form.is_valid():
-            req=form.save(commit=False)
-            req.user=request.user
-            if pet:
-                req.pet=pet
-            req.save()
+            form.save()
             messages.success(request, "Adoption request submitted successfully.")
             return redirect('adoption_success')
     else: #just opened the page
@@ -145,127 +127,3 @@ def search_pets(request):
         'error': error
     })
 
-def pet_quiz(request):
-    if request.method == "POST":
-        scores = {
-            "Dog": 0,
-            "Cat": 0,
-            "Turtle": 0,
-            "Bird": 0,
-            "Rabbit" : 0,
-            
-        }
-    activity = request.POST.get("activity")
-    space = request.POST.get("space")
-    allergy = request.POST.get("allergy")
-    time = request.POST.get("time")
-    interactive = request.POST.get("interactive")
-    noise = request.POST.get("noise")
-    long_life = request.POST.get("long_life")
-    kids = request.POST.get("kids")
-
-
-    if activity == "low":
-        scores["Cat"] += 2
-        scores["Turtle"] += 3
-        scores["Rabbit"] += 3
-
-        
-    elif activity == "medium":
-        scores["Cat"] += 2
-        scores["Bird"] += 2
-        scores["Rabbit"] += 1
-
-    elif activity == "high":
-        scores["Dog"] += 3
-
-
-
-    if space == "small":
-        scores["Cat"] += 2
-        scores["Turtle"] += 3
-        scores["Rabbit"] += 2
-        
-    elif space == "medium":
-        scores["Cat"] += 1
-        scores["Bird"] += 1
-        scores["Dog"] += 2
-        scores["Rabbit"] += 1
-
-    elif space == "large":
-        scores["Dog"] += 3
-        scores["Cat"] += 2
-        scores["Bird"] += 2
-        scores["Rabbit"] += 1
-
-    
-
-    if allergy == "yes":
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 1
-    else :
-        scores["Dog"] += 2
-        scores["Cat"] += 2
-        scores["Bird"] += 1
-        scores["Rabbit"] += 1
-       
-
-
-    if time == "low":
-        scores["Bird"] += 1
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 3
-    elif time == "medium":
-        scores["Cat"] += 2
-        scores["Bird"] += 1
-        scores["Rabbit"] += 2
-
-    elif time == "high":
-        scores["Dog"] += 4
-        scores["Cat"] += 3
-        scores["Rabbit"] += 1
-
-
-
-    if interactive == "yes":
-        scores["Dog"] += 4
-        scores["Cat"] += 3
-        scores["Bird"] += 2
-        scores["Rabbit"] += 2
-    else:
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 3
-
-
-
-    if noise == "I don't mind noise":
-        scores["Dog"] += 3
-        scores["Cat"] += 2
-        scores["Bird"] += 3
-        scores["Rabbit"] += 1
-    else :
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 3
-
-
-
-    if long_life == "yes":
-        scores["Bird"] += 2
-        scores["Turtle"] += 3
-        scores["Rabbit"] += 2
-    else:
-        scores["Dog"] += 1
-        scores["Cat"] += 1
-
-
-
-    if kids == "yes":
-        scores["Bird"] += 1
-        scores["Dog"] += 3
-        scores["Cat"] += 2
-        scores["Rabbit"] += 3
-
-
-
-    recommended_pet = max(scores , key=scores.get)
-    return render (request , "quiz_result.html" , {  "Recommended_pet" : recommended_pet ,"Scores" : scores})
