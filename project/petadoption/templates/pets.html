@@ -26,7 +26,7 @@
 
                 <div class="filter-section">
                     <h3>Filters</h3>
-                    <form method="GET">
+                    <form method="GET" action="{% url 'pets' %}">
                         <div class="filter-group">
                             <label>Pet Type</label>
                             <select name="specie" class="filter-select" onchange="this.form.submit()">
@@ -76,10 +76,10 @@
                                <img src="{{ pet_item.image }}" class="pet-small" alt="{{ pet_item.pet_name }}">
                             {% else %}
                                 <div style="width: 100%; height: 220px; background: linear-gradient(135deg, #a78bfa, #ec4899); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
-                                    {% if pet_item.specie == 'dog' %}🐶
-                                    {% elif pet_item.specie == 'cat' %}🐱
-                                    {% elif pet_item.specie == 'rabbit' %}🐰
-                                    {% elif pet_item.specie == 'bird' %}🐦
+                                    {% if pet_item.specie == 'Dog' %}🐶
+                                    {% elif pet_item.specie == 'Cat' %}🐱
+                                    {% elif pet_item.specie == 'Rabbit' %}🐰
+                                    {% elif pet_item.specie == 'Bird' %}🐦
                                     {% else %}🐾{% endif %}
                                 </div>
                             {% endif %}

@@ -35,8 +35,9 @@ def logout_user(request):
     return redirect('home')
 def home(request):
     if request.user.is_authenticated and request.user.is_staff:
-        return redirect('/admin/')
-    return render(request,"home.html")
+        from django.contrib.auth import logout
+        logout(request)  
+    return render(request, "home.html")
 
 def about(request):
     return render(request,"about.html")
