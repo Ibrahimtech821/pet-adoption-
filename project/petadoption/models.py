@@ -27,6 +27,7 @@ class enterpets(models.Model):
     any_injuries=models.CharField(choices=choice,max_length=4,default='no')
     describe_if_of_injury_if_there=models.CharField(max_length=255 , default=' ') 
     image=models.URLField(max_length=500,blank=True,null=True)
+    is_adopted=models.BooleanField(default=False)
     def __str__(self):
         return self.pet_name + '' + self.breed 
 
