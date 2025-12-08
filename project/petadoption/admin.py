@@ -18,7 +18,7 @@ class requestformadmin(admin.ModelAdmin):
             pet.is_adopted=True
         else:
             pet.is_adopted=False
-        pet.save()
+        pet.save() 
 
 admin.site.register(adoptionform,requestformadmin)
 admin.site.register(enterpets)
