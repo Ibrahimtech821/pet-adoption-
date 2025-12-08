@@ -10,13 +10,13 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
-    
+
     services:
       postgres:
         image: postgres:15
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: pets_99
           POSTGRES_DB: petadoption_db
         ports:
           - 5432:5432
