@@ -93,7 +93,7 @@ DATABASES = {
         'ENGINE':'django.db.backends.postgresql',
         'NAME':'petadoption_db',
         'USER':'ibrahim',
-        'PASSWORD':'ibrahim_88',
+        'PASSWORD':'ibrahim88',
         'HOST':'localhost',
         'PORT':'5432',
 
