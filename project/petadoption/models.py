@@ -44,6 +44,7 @@ class adoptionform(models.Model):
     do_you_have_any_experince_before_with_animals=models.CharField(choices=choice,max_length=100,default='Yes')
     status=models.CharField(choices=statu,max_length=100,default='pending')
     reasons=models.CharField(max_length=1200,default='no reason provided')
+
     def __str__(self):
         return self.user.username + '' + self.pet.pet_name
 

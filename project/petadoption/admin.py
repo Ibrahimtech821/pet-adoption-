@@ -11,9 +11,6 @@ class requestformadmin(admin.ModelAdmin):
     def get_pet(self,obj):
         return obj.pet.pet_name if obj.pet else '-'
     get_pet.short_description='pet'  
-
-
-
 admin.site.register(adoptionform,requestformadmin)
 admin.site.register(enterpets)
 # Register your models here.
