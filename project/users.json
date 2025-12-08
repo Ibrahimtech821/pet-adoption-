@@ -1,0 +1,209 @@
+
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$EHErZ6GMaKa89GHuZWHy4V$uSE8M/1JDmSy9T7PEFXlwYF/jjCBrMSwVKRMXLzYHw8=",
+      "last_login": "2025-11-01T17:48:13.860Z",
+      "is_superuser": true,
+      "username": "ibrahim1234",
+      "first_name": "",
+      "last_name": "",
+      "email": "ibrahim@ibrahim.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-11-01T17:47:15.272Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$d3DilDrHVHzgOhhtmET04A$LcR7iqWv0MMDbUTnPhYImCblJJmKP3sJEZU4/hIOhkw=",
+      "last_login": "2025-12-03T09:48:37.752Z",
+      "is_superuser": true,
+      "username": "ibrahim",
+      "first_name": "",
+      "last_name": "",
+      "email": "ibrahim@ibrahim.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-11-28T12:56:28.751Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$q4xBHTlBRdGqZb8wgPfIH2$0gGgr+rlM0ACalPrE+U2jEHasdmo27ZCORX+01YrYIA=",
+      "last_login": "2025-12-02T10:13:24.778Z",
+      "is_superuser": false,
+      "username": "ibrahim12+",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-11-28T13:13:46.353Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$Ddmb2gifpMA79BIGvh3fig$5c1uP8vpgzOONsjX+IEAffJr0W+sKfSgQrcQQBkWCtE=",
+      "last_login": "2025-11-28T16:50:04.477Z",
+      "is_superuser": false,
+      "username": "ibrahim55@",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-11-28T15:46:40.466Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$f2IkPdbsB31GDP1TpGSJcH$A/8T8/18kkwRZB0n0knsjWi5PnN/fZxH5vbf+uqyuM4=",
+      "last_login": "2025-11-30T15:16:01.843Z",
+      "is_superuser": false,
+      "username": "farida_1",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-11-30T15:12:35.098Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "petadoption.enterpets",
+    "pk": 1,
+    "fields": {
+      "pet_name": "Bella",
+      "Age": 3,
+      "specie": "Dog",
+      "description": "Friendly and energetic Golden Retriever who loves playing fetch and swimming. Great with kids and other pets.",
+      "breed": "Golden Retriver",
+      "color": "Gold",
+      "any_injuries": "no",
+      "describe_if_of_injury_if_there": "no injury",
+      "image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
+      "is_adopted": false
+    }
+  },
+  {
+    "model": "petadoption.enterpets",
+    "pk": 2,
+    "fields": {
+      "pet_name": "Cotton",
+      "Age": 2,
+      "specie": "Rabbit",
+      "description": "Cute Lionhead rabbit with fluffy mane. Friendly and enjoys hopping around.",
+      "breed": "white",
+      "color": "Gray",
+      "any_injuries": "no",
+      "describe_if_of_injury_if_there": "Had dental issues that were treated successfully. Now eating well and healthy.",
+      "image": "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308",
+      "is_adopted": false
+    }
+  },
+  {
+    "model": "petadoption.enterpets",
+    "pk": 3,
+    "fields": {
+      "pet_name": "Tweety",
+      "Age": 3,
+      "specie": "Bird",
+      "description": "Beautiful singing canary with a melodious voice. Brings joy to any home.",
+      "breed": "Canary",
+      "color": "yellow",
+      "any_injuries": "no",
+      "describe_if_of_injury_if_there": "No injuries or health issues. Happy and singing daily!",
+      "image": "https://images.unsplash.com/photo-1552728089-57bdde30beb3",
+      "is_adopted": false
+    }
+  },
+  {
+    "model": "petadoption.enterpets",
+    "pk": 4,
+    "fields": {
+      "pet_name": "Oliver",
+      "Age": 4,
+      "specie": "Cat",
+      "description": "Friendly orange tabby who enjoys lounging in sunny spots. Independent but affectionate.",
+      "breed": "Tabby",
+      "color": "Orange",
+      "any_injuries": "yes",
+      "describe_if_of_injury_if_there": "Scratched paw from outdoor play 6 months ago - healed completely. Now doing great!",
+      "image": "https://images.unsplash.com/photo-1529778873920-4da4926a72c2",
+      "is_adopted": false
+    }
+  },
+  {
+    "model": "petadoption.adoptionform",
+    "pk": 1,
+    "fields": {
+      "user": 3,
+      "pet": 1,
+      "age": 25,
+      "why_you_wanna_adopt": "cuz i want to have dog to play with",
+      "do_you_have_any_experince_before_with_animals": "yes",
+      "status": "accepted",
+      "reasons": "okay"
+    }
+  },
+  {
+    "model": "petadoption.adoptionform",
+    "pk": 2,
+    "fields": {
+      "user": 4,
+      "pet": 1,
+      "age": 50,
+      "why_you_wanna_adopt": "cuz i want to have dog to play with",
+      "do_you_have_any_experince_before_with_animals": "no",
+      "status": "reject",
+      "reasons": "already adopted"
+    }
+  },
+  {
+    "model": "petadoption.adoptionform",
+    "pk": 3,
+    "fields": {
+      "user": 5,
+      "pet": 1,
+      "age": 3,
+      "why_you_wanna_adopt": "i am married to one",
+      "do_you_have_any_experince_before_with_animals": "yes",
+      "status": "reject",
+      "reasons": "already adopted"
+    }
+  },
+  {
+    "model": "petadoption.adoptionform",
+    "pk": 4,
+    "fields": {
+      "user": 3,
+      "pet": 4,
+      "age": 30,
+      "why_you_wanna_adopt": "cuz i want to have dog to play with",
+      "do_you_have_any_experince_before_with_animals": "yes",
+      "status": "pending",
+      "reasons": "no reason provided"
+    }
+  }
+]
