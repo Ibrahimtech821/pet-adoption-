@@ -12,9 +12,10 @@ class requestformadmin(admin.ModelAdmin):
         return obj.pet.pet_name if obj.pet else '-'
     get_pet.short_description='pet'  
     def save_model(self,request,obj,form,change):
+       
         super().save_model(request,obj,form,change)
+        pet=obj.pet
         if obj.status=='accepted':
-            pet=obj.pet
             pet.is_adopted=True
         else:
             pet.is_adopted=False

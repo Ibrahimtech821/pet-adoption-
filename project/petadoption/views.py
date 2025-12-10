@@ -96,6 +96,7 @@ def pet_detail(request, pet_id):
         'any_injuries': pet.any_injuries if pet.any_injuries else 'No',
         'injury_description': pet.describe_if_of_injury_if_there if pet.describe_if_of_injury_if_there else 'There are no injuries',
         'image': pet.image if pet.image else None,
+        'is_adopted': pet.is_adopted,
     }
     return render(request, 'pet_detail.html', {'pet': pet_data})
 

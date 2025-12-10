@@ -72,10 +72,15 @@
                     </div>
                 </div>
                 {% endif %}
-
+                {%if not pet.is_adopted %}
                 <a href="{% url 'submit_adoption_request' pet.id %}" class="btn btn-primary btn-large btn-block">
                     Adopt {{ pet.name }}
                 </a>
+                {% else %}
+                <div style="padding: 1.5rem; background-color: #d1fae5; border-left: 4px solid #10b981; border-radius: 8px; text-align: center;">
+                    <p style="color: #065f46; line-height: 1.6; font-size: 1.25rem;">✓ {{ pet.name }} has been adopted!</p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
