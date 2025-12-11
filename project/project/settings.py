@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 DATABASES = {
-    'supabase': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres.ihkkoktodvfezgpuxkix',
@@ -89,7 +89,7 @@ DATABASES = {
         'HOST': 'aws-1-eu-central-1.pooler.supabase.com',
         'PORT': '6543',
     },
-    'default':{
+    'local':{
         'ENGINE':'django.db.backends.postgresql',
         'NAME':'petadoption_db',
         'USER':'ibrahim',
