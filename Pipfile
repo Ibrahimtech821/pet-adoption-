@@ -4,10 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-psycopg2-binary = "*"
+
+django = "*"
 dj-database-url = "*"
 bs4 = "*"
-django = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 

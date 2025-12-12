@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pet Quiz - Pet Adoption System{% endblock %}
+
+{% block content %}
+<section class="quiz-banner">
+    <div class="quiz-banner-content">
+        <div class="quiz-banner-icon">🐾</div>
+        <div class="quiz-banner-text">
+            <h3>Find Your Perfect Pet Match!</h3>
+            <p>Answer a few questions and we'll recommend the best pet for your lifestyle</p>
+        </div>
+    </div>
+</section>
+
+<form method="post" action="{% url 'pet_quiz' %}" class="quiz-form">
+    {% csrf_token %}
+
+    <div class="quiz-question">
+        <label>🏃 What is your activity level? <span class="required">{% if errors.activity %}*{% endif %}</span></label>
+        <input type="radio" name="activity" value="low" {% if request.POST.activity == 'low' %}checked{% endif %}> Low<br>
+        <input type="radio" name="activity" value="medium" {% if request.POST.activity == 'medium' %}checked{% endif %}> Medium<br>
+        <input type="radio" name="activity" value="high" {% if request.POST.activity == 'high' %}checked{% endif %}> High
+    </div>
+
+    <div class="quiz-question">
+        <label>🏠 How much living space do you have? <span class="required">{% if errors.space %}*{% endif %}</span></label>
+        <input type="radio" name="space" value="small" {% if request.POST.space == 'small' %}checked{% endif %}> Small<br>
+        <input type="radio" name="space" value="medium" {% if request.POST.space == 'medium' %}checked{% endif %}> Medium<br>
+        <input type="radio" name="space" value="large" {% if request.POST.space == 'large' %}checked{% endif %}> Large
+    </div>
+
+    <div class="quiz-question">
+        <label>🤧 Do you have allergies? <span class="required">{% if errors.allergy %}*{% endif %}</span></label>
+        <input type="radio" name="allergy" value="yes" {% if request.POST.allergy == 'yes' %}checked{% endif %}> Yes<br>
+        <input type="radio" name="allergy" value="no" {% if request.POST.allergy == 'no' %}checked{% endif %}> No
+    </div>
+
+    <div class="quiz-question">
+        <label>⏰ How much time can you dedicate to pet care daily? <span class="required">{% if errors.time %}*{% endif %}</span></label>
+        <input type="radio" name="time" value="low" {% if request.POST.time == 'low' %}checked{% endif %}> Low<br>
+        <input type="radio" name="time" value="medium" {% if request.POST.time == 'medium' %}checked{% endif %}> Medium<br>
+        <input type="radio" name="time" value="high" {% if request.POST.time == 'high' %}checked{% endif %}> High
+    </div>
+
+    <div class="quiz-question">
+        <label>🎾 Do you want a highly interactive pet? <span class="required">{% if errors.interactive %}*{% endif %}</span></label>
+        <input type="radio" name="interactive" value="yes" {% if request.POST.interactive == 'yes' %}checked{% endif %}> Yes<br>
+        <input type="radio" name="interactive" value="no" {% if request.POST.interactive == 'no' %}checked{% endif %}> No
+    </div>
+
+    <div class="quiz-question">
+        <label>🔊 How do you feel about noise? <span class="required">{% if errors.noise %}*{% endif %}</span></label>
+        <input type="radio" name="noise" value="tolerant" {% if request.POST.noise == 'tolerant' %}checked{% endif %}> I don't mind<br>
+        <input type="radio" name="noise" value="quiet" {% if request.POST.noise == 'quiet' %}checked{% endif %}> I prefer quiet
+    </div>
+
+    <div class="quiz-question">
+        <label>🕰️ Are you looking for a long-lived pet? <span class="required">{% if errors.long_life %}*{% endif %}</span></label>
+        <input type="radio" name="long_life" value="yes" {% if request.POST.long_life == 'yes' %}checked{% endif %}> Yes<br>
+        <input type="radio" name="long_life" value="no" {% if request.POST.long_life == 'no' %}checked{% endif %}> No
+    </div>
+
+    <div class="quiz-question">
+        <label>👶 Do you have children in your household? <span class="required">{% if errors.kids %}*{% endif %}</span></label>
+        <input type="radio" name="kids" value="yes" {% if request.POST.kids == 'yes' %}checked{% endif %}> Yes<br>
+        <input type="radio" name="kids" value="no" {% if request.POST.kids == 'no' %}checked{% endif %}> No
+    </div>
+
+    <button type="submit" class="btn btn-primary">Get My Recommendation</button>
+</form>
+{% endblock %}

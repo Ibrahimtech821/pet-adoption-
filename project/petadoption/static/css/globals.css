@@ -2009,3 +2009,163 @@ body {
     text-align: center;
   }
 }
+
+
+.quiz-banner {
+    background: linear-gradient(135deg, #de7af0, #fed7aa);
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+}
+
+.quiz-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: transparent;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+
+.quiz-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+.quiz-form .quiz-question {
+    background-color: #f8dff0; 
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(192, 79, 79, 0.08);
+    transition: transform 0.2s;
+}
+
+.quiz-form .quiz-question:hover {
+    transform: translateY(-2px);
+}
+
+.quiz-form .quiz-question label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.quiz-form .quiz-question input[type="radio"] {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+
+.quiz-form button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #f66ec4bd;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.quiz-form button:hover {
+    background: #f35ac5ea;
+}
+input[type="radio"] {
+    accent-color: #df59fa; 
+}
+.required {
+    color: #d1547a; 
+    margin-left: 5px;
+}
+
+
+
+/* Quiz Result Card */
+.quiz-result-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f8dff0;
+    min-height: 80vh;
+}
+
+.result-card {
+    background: #ffb6e8bb;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.result-emoji {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+.pet-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.pet-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.btn {
+    margin: 5px;
+    padding: 10px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #c363ff;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #742ea6;
+}
+
+.btn-secondary {
+    background-color: #f5f6fa;
+    color: #333;
+    border: 1px solid #ccc;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #e1e2e6;
+}
+
+.scores-summary {
+    max-width: 500px;
+    width: 100%;
+    text-align: left;
+}
+
+.scores-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.scores-summary li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+}

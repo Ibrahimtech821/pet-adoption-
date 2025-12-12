@@ -147,127 +147,102 @@ def search_pets(request):
         'error': error
     })
 
-def pet_quiz(request):
+
+def pet_quiz(request): 
+    scores = {"Dog": 0, "Cat": 0, "Turtle": 0, "Bird": 0, "Rabbit": 0}
+    errors = {} # to track empty questiosn
     if request.method == "POST":
-        scores = {
-            "Dog": 0,
-            "Cat": 0,
-            "Turtle": 0,
-            "Bird": 0,
-            "Rabbit" : 0,
-            
-        }
-    activity = request.POST.get("activity")
-    space = request.POST.get("space")
-    allergy = request.POST.get("allergy")
-    time = request.POST.get("time")
-    interactive = request.POST.get("interactive")
-    noise = request.POST.get("noise")
-    long_life = request.POST.get("long_life")
-    kids = request.POST.get("kids")
+        activity = request.POST.get("activity")
+        space = request.POST.get("space")
+        allergy = request.POST.get("allergy")
+        time_avail = request.POST.get("time")
+        interactive = request.POST.get("interactive")
+        noise = request.POST.get("noise")
+        long_life = request.POST.get("long_life")
+        kids = request.POST.get("kids")
+
+        for feild_name, field_value in [("activity", activity), ("space", space), ("allergy", allergy), ("time", time_avail), ("interactive", interactive), ("noise", noise), ("long_life", long_life), ("kids", kids)]:
+            if not field_value:
+                errors[feild_name] = True
 
 
-    if activity == "low":
-        scores["Cat"] += 2
-        scores["Turtle"] += 3
-        scores["Rabbit"] += 3
+        if not errors:
+            if activity == "low":
+                scores["Cat"] += 3
+                scores["Turtle"] += 3
+                scores["Rabbit"] += 1
+            elif activity == "medium":
+                scores["Cat"] += 2
+                scores["Bird"] += 2
+            elif activity == "high":
+                scores["Dog"] += 4
 
+            if space == "small":
+                scores["Cat"] += 3
+                scores["Turtle"] += 2
+            elif space == "medium":
+                scores["Cat"] += 2
+                scores["Bird"] += 2
+                scores["Dog"] += 2
+            elif space == "large":
+                scores["Dog"] += 4
+                scores["Bird"] += 2
+
+            if allergy == "yes":
+                scores["Turtle"] += 4
+                scores["Rabbit"] += 1  
+            else:
+                scores["Dog"] += 2
+                scores["Cat"] += 2
+                scores["Bird"] += 1
+
+            if time_avail == "low":
+                scores["Turtle"] += 4
+            elif time_avail == "medium":
+                scores["Cat"] += 2
+                scores["Bird"] += 2
+            elif time_avail == "high":
+                scores["Dog"] += 4
+
+            if interactive == "yes":
+                scores["Dog"] += 4
+                scores["Cat"] += 3
+                scores["Bird"] += 3
+            elif interactive == "no":
+                scores["Turtle"] += 4
+
+            if noise == "I don't mind":  
+                scores["Dog"] += 3
+                scores["Cat"] += 2
+                scores["Bird"] += 2
+            elif noise == "quiet":
+                scores["Turtle"] += 4
+
+            if long_life == "yes":
+                scores["Bird"] += 3
+                scores["Turtle"] += 3
+            elif long_life == "no":
+                scores["Dog"] += 1
+                scores["Cat"] += 1
+
+            if kids == "yes":
+                scores["Dog"] += 3
+                scores["Cat"] += 2
+                scores["Rabbit"] += 2
+
+            ##save in session to redirect
+            request.session['Scores'] = scores
+            return redirect('pet_quiz_result')
         
-    elif activity == "medium":
-        scores["Cat"] += 2
-        scores["Bird"] += 2
-        scores["Rabbit"] += 1
-
-    elif activity == "high":
-        scores["Dog"] += 3
-
-
-
-    if space == "small":
-        scores["Cat"] += 2
-        scores["Turtle"] += 3
-        scores["Rabbit"] += 2
-        
-    elif space == "medium":
-        scores["Cat"] += 1
-        scores["Bird"] += 1
-        scores["Dog"] += 2
-        scores["Rabbit"] += 1
-
-    elif space == "large":
-        scores["Dog"] += 3
-        scores["Cat"] += 2
-        scores["Bird"] += 2
-        scores["Rabbit"] += 1
-
+        return render(request, "pet_quiz.html", {"Scores": scores , "errors": errors})
+    return render(request, "pet_quiz.html", {"Scores": scores , "errors": errors}) ##get response , empty quiz
     
 
-    if allergy == "yes":
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 1
-    else :
-        scores["Dog"] += 2
-        scores["Cat"] += 2
-        scores["Bird"] += 1
-        scores["Rabbit"] += 1
-       
-
-
-    if time == "low":
-        scores["Bird"] += 1
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 3
-    elif time == "medium":
-        scores["Cat"] += 2
-        scores["Bird"] += 1
-        scores["Rabbit"] += 2
-
-    elif time == "high":
-        scores["Dog"] += 4
-        scores["Cat"] += 3
-        scores["Rabbit"] += 1
-
-
-
-    if interactive == "yes":
-        scores["Dog"] += 4
-        scores["Cat"] += 3
-        scores["Bird"] += 2
-        scores["Rabbit"] += 2
-    else:
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 3
-
-
-
-    if noise == "I don't mind noise":
-        scores["Dog"] += 3
-        scores["Cat"] += 2
-        scores["Bird"] += 3
-        scores["Rabbit"] += 1
-    else :
-        scores["Turtle"] += 4
-        scores["Rabbit"] += 3
-
-
-
-    if long_life == "yes":
-        scores["Bird"] += 2
-        scores["Turtle"] += 3
-        scores["Rabbit"] += 2
-    else:
-        scores["Dog"] += 1
-        scores["Cat"] += 1
-
-
-
-    if kids == "yes":
-        scores["Bird"] += 1
-        scores["Dog"] += 3
-        scores["Cat"] += 2
-        scores["Rabbit"] += 3
-
-
-
-    recommended_pet = max(scores , key=scores.get)
-    return render (request , "quiz_result.html" , {  "Recommended_pet" : recommended_pet ,"Scores" : scores})
+def pet_quiz_result(request):
+    scores = request.session.get('Scores')
+    if not scores:
+        return redirect('pet_quiz') 
+    
+    max_score = max(scores.values())
+    top_pets = [pet for pet, score in scores.items() if score == max_score]
+    return render(request, "pet_quiz_result.html", {"Scores": scores, "top_pets": top_pets})

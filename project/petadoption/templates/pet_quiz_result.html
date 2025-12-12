@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pet Quiz Result - Pet Adoption System{% endblock %}
+
+{% block content %}
+<section class="quiz-result-section">
+
+    {% for pet in top_pets %}
+    <div class="result-card">
+        <h3>🐾 Our Recommended Pet for You:</h3>
+        <div class="result-emoji">
+            {% if pet == "Dog" %} 🐕 
+            {% elif pet == "Cat" %} 🐈 
+            {% elif pet == "Turtle" %} 🐢 
+            {% elif pet == "Bird" %} 🦜 
+            {% elif pet == "Rabbit" %} 🐰 
+            {% endif %}
+        </div>
+        <div class="pet-name">{{ pet }}</div>
+        <div class="pet-description">
+            {% if pet == "Dog" %}
+                Dogs are loyal, active companions perfect for those who love outdoor activities.
+            {% elif pet == "Cat" %}
+                Cats are independent yet affectionate companions ideal for various living situations.
+            {% elif pet == "Turtle" %}
+                Turtles are low-maintenance, quiet pets perfect for people with allergies or limited time.
+            {% elif pet == "Bird" %}
+                Birds are intelligent, social creatures that can be wonderful companions.
+            {% elif pet == "Rabbit" %}
+                Rabbits are gentle, quiet pets great for families and apartments.
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="scores-summary">
+        <h4>Compatibility Scores</h4>
+        <ul>
+            {% for pet_type, score in Scores.items %}
+            <li>
+                {% if pet_type == "Dog" %} 🐕 
+                {% elif pet_type == "Cat" %} 🐈 
+                {% elif pet_type == "Turtle" %} 🐢 
+                {% elif pet_type == "Bird" %} 🦜 
+                {% elif pet_type == "Rabbit" %} 🐰 
+                {% endif %}
+                {{ pet_type }} - {{ score }} points
+                {% if pet_type in top_pets %} (Top Match) {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="quiz-buttons">
+        <a href="{% url 'pets' %}" class="btn btn-primary">Browse Pets</a>
+        <a href="{% url 'pet_quiz' %}" class="btn btn-secondary">Retake Quiz</a>
+    </div>
+
+</section>
+{% endblock %}
