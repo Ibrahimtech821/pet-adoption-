@@ -64,7 +64,7 @@
 
                         <div class="pet-card-image">
                             {% if food.image %}
-                                <img src="{{ food.image.url }}" class="pet-small" alt="{{ food.name }}">
+                                <img src="{% static 'petadoption/'|add:food.image %}" alt="{{ food.brand_name }}">
                             {% else %}
                                 <div style="width:100%; height:220px; background: linear-gradient(135deg, #22c55e, #10b981); 
                                 display:flex; align-items:center; justify-content:center; font-size:4rem;">

@@ -26,8 +26,8 @@ admin.site.register(enterpets)
 
 @admin.register(PetFood)
 class PetFoodAdmin(admin.ModelAdmin):
-    list_display = ('name', 'brand', 'food_type', 'suitable_for')
-    list_filter = ('food_type', 'brand')
-    search_fields = ('name', 'brand')
+    list_display = ('brand_name', 'food_type', 'suitable_for')
+    list_filter = ('food_type', 'brand_name')
+    search_fields = ('brand_name','suitable_for')
 
 # Register your models here.

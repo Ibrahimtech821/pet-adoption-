@@ -57,13 +57,15 @@ class PetFood(models.Model):
         ('treat', 'Treat'),
     ]
 
-    name = models.CharField(max_length=100)
-    brand = models.CharField(max_length=100)
+    
+    brand_name = models.CharField(max_length=100)
     food_type = models.CharField(max_length=10, choices=FOOD_TYPE_CHOICES)
     suitable_for = models.CharField(max_length=50)  # e.g. "Adult Dogs"
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='petfood/', blank=True, null=True)
+    image = models.CharField(max_length=100,default='static/petfood_pictures/AnimalLife.jpg',blank=True)
+    buy_link = models.URLField(blank=True, null=True)
+
 
     def __str__(self):
-        return self.name
+        return self.brand_name
     
