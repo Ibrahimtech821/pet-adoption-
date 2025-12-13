@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import enterpets,adoptionform
+from .models import enterpets,adoptionform,Pet,PetFood
 
 class requestformadmin(admin.ModelAdmin):
     list_display=('get_user','get_pet','age','why_you_wanna_adopt','do_you_have_any_experince_before_with_animals','reasons')
@@ -23,4 +23,11 @@ class requestformadmin(admin.ModelAdmin):
 
 admin.site.register(adoptionform,requestformadmin)
 admin.site.register(enterpets)
+
+@admin.register(PetFood)
+class PetFoodAdmin(admin.ModelAdmin):
+    list_display = ('name', 'brand', 'food_type', 'suitable_for')
+    list_filter = ('food_type', 'brand')
+    search_fields = ('name', 'brand')
+
 # Register your models here.

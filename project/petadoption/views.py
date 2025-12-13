@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect , get_object_or_404
-from .models import enterpets , adoptionform
+from .models import enterpets , adoptionform,PetFood
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
@@ -246,3 +246,8 @@ def pet_quiz_result(request):
     max_score = max(scores.values())
     top_pets = [pet for pet, score in scores.items() if score == max_score]
     return render(request, "pet_quiz_result.html", {"Scores": scores, "top_pets": top_pets})
+
+
+def petfood_list(request):
+    foods = PetFood.objects.all()
+    return render(request, 'petfood_list.html', {'foods': foods})
