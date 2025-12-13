@@ -250,4 +250,4 @@ def pet_quiz_result(request):
 
 def petfood_list(request):
     foods = PetFood.objects.all()
-    return render(request, 'petfood_list.html', {'foods': foods})
+    return render(request, 'petfood.html', {'foods': foods})

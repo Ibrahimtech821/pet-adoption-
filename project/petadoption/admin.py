@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import enterpets,adoptionform,Pet,PetFood
+from .models import enterpets,adoptionform,PetFood
 
 class requestformadmin(admin.ModelAdmin):
     list_display=('get_user','get_pet','age','why_you_wanna_adopt','do_you_have_any_experince_before_with_animals','reasons')

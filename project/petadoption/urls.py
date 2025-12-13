@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib import admin
-from .views import MyLoginView,home,about,register,pet_detail,submit_adoption_request, adoption_success,pet_quiz,my_requests,logout_user, pets_view,search_pets, pet_quiz_result
+from .views import MyLoginView,home,about,register,pet_detail,submit_adoption_request, adoption_success,pet_quiz,my_requests,logout_user, pets_view,search_pets, pet_quiz_result,petfood_list
 
 urlpatterns= [
     path('',home,name="home"),
@@ -17,6 +17,8 @@ urlpatterns= [
     path('logout/',logout_user, name='logout'),
     path('quiz/', pet_quiz , name='pet_quiz'),
     path('quiz/result/', pet_quiz_result, name='pet_quiz_result'),
+    
+    path('petfood/', petfood_list, name='petfood_list'),
     
 
 ]

@@ -20,7 +20,10 @@
             <div class="nav-menu" id="navMenu">
                 <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
                 <a href="{% url 'about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
-                <a href="{% url 'pets' %}" class="nav-link {% if request.resolver_match.url_name == 'pets' or request.resolver_match.url_name == 'pet_detail' %}active{% endif %}">Pet View</a>                
+                <a href="{% url 'pets' %}" class="nav-link {% if request.resolver_match.url_name == 'pets' or request.resolver_match.url_name == 'pet_detail' %}active{% endif %}">Pet View</a>    
+                <a href="{% url 'petfood_list' %}" class="nav-link {% if request.resolver_match.url_name == 'petfood_list' %}active{% endif %}">Pet Food</a>
+
+       
                 {% if user.is_authenticated %}
                     <div class="nav-user-section">
                         <div class="user-info">
