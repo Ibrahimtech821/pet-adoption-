@@ -8,7 +8,10 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import  AdoptionForm
+from .forms import  AdoptionForm,customcreationform
+from .otp import generate_otp
+
+
 
 
 
@@ -19,25 +22,48 @@ class MyLoginView(LoginView):
 
 
 def register(request):  ##user login 
-    new_user=UserCreationForm()
+    new_user=customcreationform()
     if request.method=='POST':
-        new_user=UserCreationForm(data=request.POST)
+        new_user=customcreationform(data=request.POST)
         if new_user.is_valid():
-            user=new_user.save()
-            login(request,user)
-            return redirect('login')
+            user=new_user.save(commit=False)
+            otp=generate_otp(user.email)
+            request.session['otp']=otp
+            request.session['user_data']=request.POST
+            return redirect('verify_otp')
         return render(request,'register.html',{"register":new_user})
     else:  
-        new_user = UserCreationForm()
+        new_user = customcreationform()
         return render(request,'register.html',{"register":new_user})
+def verify_otp(request):
+    if request.method=='POST':
+        entered_otp=request.POST.get('otp')
+        if str(entered_otp)==str(request.session.get('otp')):
+            data = request.session.get('user_data')
+            form = customcreationform(data)
+            if form.is_valid():
+                user = form.save()
+                login(request, user)
+                del request.session['otp']
+                del request.session['user_data']
+                return redirect('home')
+        else:
+            error = "Invalid OTP, please try again."
+            return render(request, "verify_otp.html", {"error": error})
+    return render(request, "verify_otp.html")
+    
+
 def logout_user(request):
     logout(request)             
     return redirect('home')
+
+
 def home(request):
     if request.user.is_authenticated and request.user.is_staff:
         from django.contrib.auth import logout
         logout(request)  
     return render(request, "home.html")
+
 
 def about(request):
     return render(request,"about.html")
@@ -45,7 +71,7 @@ def about(request):
 
 def pets_view(request):
     # Start with all pets
-    pets = enterpets.objects.all()
+    pets = enterpets.objects.all().order_by('id')
     error = ""
 
     
