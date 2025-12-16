@@ -35,6 +35,7 @@ def register(request):  ##user login
     else:  
         new_user = customcreationform()
         return render(request,'register.html',{"register":new_user})
+    
 def verify_otp(request):
     if request.method=='POST':
         entered_otp=request.POST.get('otp')
