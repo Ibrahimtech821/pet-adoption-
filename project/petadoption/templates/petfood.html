@@ -17,40 +17,11 @@
         <div class="pet-list-layout">
 
             <!-- Filters Sidebar -->
-            <aside class="filters-sidebar">
-                <div class="filter-section">
-                    <h3>Search</h3>
-                    <form method="GET" class="search-form">
-                        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search food..." class="search-input">
-                        <button type="submit" class="search-btn">🔍</button>
-                    </form>
-                </div>
+            
+                        
 
-                <div class="filter-section">
-                    <h3>Filters</h3>
-                    <form method="GET">
-                        <div class="filter-group">
-                            <label>Food Type</label>
-                            <select name="food_type" class="filter-select" onchange="this.form.submit()">
-                                <option value="">All Types</option>
-                                <option value="dry" {% if request.GET.food_type == 'dry' %}selected{% endif %}>Dry Food</option>
-                                <option value="wet" {% if request.GET.food_type == 'wet' %}selected{% endif %}>Wet Food</option>
-                                <option value="treat" {% if request.GET.food_type == 'treat' %}selected{% endif %}>Treats</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-group">
-                            <label>Suitable For</label>
-                            <input type="text" name="suitable_for" value="{{ request.GET.suitable_for }}" placeholder="Dogs, Cats..." class="search-input">
-                        </div>
-
-                        <div class="filter-buttons">
-                            <button type="submit" class="btn btn-primary btn-block">Apply Filters</button>
-                            <a href="{% url 'petfood_list' %}" class="btn btn-secondary btn-block">Clear All</a>
-                        </div>
-                    </form>
-                </div>
-            </aside>
+                        
+                           
 
             <!-- Food Grid -->
             <div class="pets-content">
@@ -64,7 +35,7 @@
 
                         <div class="pet-card-image">
                             {% if food.image %}
-                                <img src="{% static 'petadoption/'|add:food.image %}" alt="{{ food.brand_name }}">
+                                <img src="{{ food.image }}" alt="{{ food.name }}">
                             {% else %}
                                 <div style="width:100%; height:220px; background: linear-gradient(135deg, #22c55e, #10b981); 
                                 display:flex; align-items:center; justify-content:center; font-size:4rem;">
@@ -75,8 +46,8 @@
                         </div>
 
                         <div class="pet-card-content">
-                            <h3 class="pet-card-name">{{ food.name }}</h3>
-                            <p class="pet-card-breed">{{ food.brand }}</p>
+                            <h3 class="pet-card-name">{{ food.brand_name }}</h3>
+                            <p class="pet-card-breed">{{ food.description }}</p>
 
                             <div class="pet-card-info">
                                 <span class="pet-info-item">
