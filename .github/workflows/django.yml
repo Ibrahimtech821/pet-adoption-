@@ -15,9 +15,9 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: ibrahim
-          POSTGRES_PASSWORD: ibrahim88
-          POSTGRES_DB: petadoption_db
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
         ports:
           - 5432:5432
         options: >-
@@ -27,9 +27,14 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/petadoption_db
-      DJANGO_SECRET_KEY: testsecretkey
-      PYTHONUNBUFFERED: 1
+      ENVIRONMENT: ci
+      CI_DB_NAME: testdb
+      CI_DB_USER: testuser
+      CI_DB_PASSWORD: testpass
+      CI_DB_HOST: 127.0.0.1
+      CI_DB_PORT: 5432
+      SECRET_KEY: super-secret-ci-key
+      DEBUG: 'True'
     
 
     steps:
