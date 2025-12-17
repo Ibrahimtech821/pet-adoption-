@@ -8,7 +8,7 @@ django = "*"
 dj-database-url = "*"
 bs4 = "*"
 psycopg2-binary = "*"
-decouple = "*"
+python-decouple = "*"
 
 [dev-packages]
 
