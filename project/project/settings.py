@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import sys
+import os
+from decouple import config
+import dj_database_url
 
 
 Email_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -31,10 +34,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hlxi#o0s2fcolwj^137pbwzw^y_xyx2-31d2_5$-s4(ju_!-82'
+
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-placeholder')
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -86,27 +91,38 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
 
 
-DATABASES = {
-    'supabase': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres.ihkkoktodvfezgpuxkix',
-        'PASSWORD': 'youcantseeme',
-        'HOST': 'aws-1-eu-central-1.pooler.supabase.com',
-        'PORT': '6543',
-    },
-    'default':{
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME':'petadoption_db',
-        'USER':'ibrahim',
-        'PASSWORD':'ibrahim88',
-        'HOST':'localhost',
-        'PORT':'5432',
-
+if ENVIRONMENT == "production":
+    # Azure will provide DATABASE_URL for Supabase
+    DATABASES = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
-}
+elif ENVIRONMENT == "ci":
+    # GitHub Actions temporary DB
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('CI_DB_NAME', 'testdb'),
+            'USER': os.getenv('CI_DB_USER', 'testuser'),
+            'PASSWORD': os.getenv('CI_DB_PASSWORD', 'testpass'),
+            'HOST': os.getenv('CI_DB_HOST', '127.0.0.1'),
+            'PORT': os.getenv('CI_DB_PORT', '5432'),
+        }
+    }
+else:
+    # Local dev
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default='my_local_db'),
+            'USER': config('DB_USER', default='my_user'),
+            'PASSWORD': config('DB_PASSWORD', default='my_pass'),
+            'HOST': config('DB_HOST', default='localhost'),
+            'PORT': config('DB_PORT', default='5432'),
+        }
+    }
 
 
 
