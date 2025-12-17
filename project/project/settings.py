@@ -91,13 +91,13 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
+ENVIRONMENT = config("ENVIRONMENT", default = "local")
 
 
 if ENVIRONMENT == "production":
     # Azure will provide DATABASE_URL for Supabase
     DATABASES = {
-        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+        'default': dj_database_url.parse(config('DATABASE_URL'))
     }
 elif ENVIRONMENT == "ci":
     # GitHub Actions temporary DB
@@ -168,3 +168,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+print("DEBUG from .env =", config("DEBUG"))
+print("DB_NAME from .env =", config("DB_NAME"))
+
+
