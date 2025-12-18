@@ -45,7 +45,7 @@ A Django-based web application for browsing pets, submitting adoption requests, 
 ## Admin Behavior (summary)
 - Admin can review adoption requests.
 - When a request is approved, the associated pet is marked as adopted.
-
+- Admin can edit , add , delete pets
 ## Notes
 - CSRF trusted origins are configured for Azure App Service.
 - Environment variables drive `SECRET_KEY`, `DEBUG`, `ENVIRONMENT`, and `DATABASE_URL`.
