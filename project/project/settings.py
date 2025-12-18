@@ -46,7 +46,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['my-pet-app.azurewebsites.net']
+ALLOWED_HOSTS = ['my-pet-app-hwfkb8fchrebg2c7.germanywestcentral-01.azurewebsites.net']
 
 
 # Application definition
