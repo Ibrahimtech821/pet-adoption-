@@ -97,15 +97,16 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 
-ENVIRONMENT = config("ENVIRONMENT", default = "local")
+ENVIRONMENT = config("ENVIRONMENT", default = "production")
 
 
-if ENVIRONMENT == "production":
+
     # Azure will provide DATABASE_URL for Supabase
-    DATABASES = {
+DATABASES = {
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
-elif ENVIRONMENT == "ci":
+
+if ENVIRONMENT == "ci":
     # GitHub Actions temporary DB
     DATABASES = {
         'default': {
@@ -120,15 +121,10 @@ elif ENVIRONMENT == "ci":
 else:
     # Local dev
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME', default='my_local_db'),
-            'USER': config('DB_USER', default='my_user'),
-            'PASSWORD': config('DB_PASSWORD', default='my_pass'),
-            'HOST': config('DB_HOST', default='localhost'),
-            'PORT': config('DB_PORT', default='5432'),
-        }
+        'default': dj_database_url.parse(config('DATABASE_URL'))
     }
+    
+    
 
 
 
