@@ -48,6 +48,10 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://pets12-gvhbg3a4ebebesfn.uaenorth-01.azurewebsites.net',
+]
+
 
 # Application definition
 
