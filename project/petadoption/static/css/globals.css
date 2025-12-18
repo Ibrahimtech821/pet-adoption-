@@ -1855,8 +1855,13 @@ body {
 /* Responsive */
 @media (max-width: 1024px) {
   .pet-list-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr 3fr !important;
   }
+
+  .pets-grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
 
   .filters-sidebar {
     position: static;
@@ -2169,3 +2174,7 @@ input[type="radio"] {
     margin-bottom: 8px;
     font-size: 1rem;
 }
+
+
+/* Flex container for the cards */
+
