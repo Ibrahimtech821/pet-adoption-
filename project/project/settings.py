@@ -24,6 +24,11 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'puniveristy@gmail.com'
 EMAIL_HOST_PASSWORD = 'gmjf okrn rlmj iykw'
 
+SESSION_COOKIE_AGE = 15 * 60 
+
+
+SESSION_SAVE_EVERY_REQUEST = True
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -91,13 +96,13 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
+ENVIRONMENT = config("ENVIRONMENT", default = "local")
 
 
 if ENVIRONMENT == "production":
     # Azure will provide DATABASE_URL for Supabase
     DATABASES = {
-        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+        'default': dj_database_url.parse(config('DATABASE_URL'))
     }
 elif ENVIRONMENT == "ci":
     # GitHub Actions temporary DB
