@@ -102,9 +102,7 @@ ENVIRONMENT = config("ENVIRONMENT", default = "production")
 
 
     # Azure will provide DATABASE_URL for Supabase
-DATABASES = {
-        'default': dj_database_url.parse(config('DATABASE_URL'))
-    }
+
 
 if ENVIRONMENT == "ci":
     # GitHub Actions temporary DB
