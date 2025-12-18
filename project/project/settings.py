@@ -50,6 +50,8 @@ ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://pets12-gvhbg3a4ebebesfn.uaenorth-01.azurewebsites.net',
+    'https://pets12.azurewebsites.net',
+    'https://*.azurewebsites.net',
 ]
 
 
