@@ -97,12 +97,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 
 
-ENVIRONMENT = config("ENVIRONMENT", default = "production")
-
-
-
-    # Azure will provide DATABASE_URL for Supabase
-
+ENVIRONMENT = config("ENVIRONMENT", default="production")
 
 if ENVIRONMENT == "ci":
     # GitHub Actions temporary DB
@@ -117,7 +112,7 @@ if ENVIRONMENT == "ci":
         }
     }
 else:
-    # Local dev
+    # Production - uses DATABASE_URL from Azure connection strings
     DATABASES = {
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
