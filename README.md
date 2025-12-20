@@ -49,5 +49,5 @@ A Django-based web application for browsing pets, submitting adoption requests, 
 ## Notes
 - CSRF trusted origins are configured for Azure App Service.
 - Environment variables drive `SECRET_KEY`, `DEBUG`, `ENVIRONMENT`, and `DATABASE_URL`.
-##production-link:
+## production-link:
 - pets12-gvhbg3a4ebebesfn.uaenorth-01.azurewebsites.net
